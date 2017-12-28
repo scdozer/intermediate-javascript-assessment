@@ -153,7 +153,7 @@ function forgetter (name){
     newArray.push(item);
     return {
       name: name,
-      remember: array
+      remember: newArray
     }
   }
 }
