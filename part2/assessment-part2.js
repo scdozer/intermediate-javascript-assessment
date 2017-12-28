@@ -44,7 +44,14 @@ function noWeakLink() {
     url: '/api/users'
   })
   // CODE HERE...
-
+  .then( response => {
+    firstUser = response.data[0];
+    return response;
+  })
+  .then( response => {
+    thirdUser = response.data[2];
+    return response.data[9];
+  })
 }
 
 
@@ -75,6 +82,9 @@ function large() {
 }
 // CODE HERE...
 
+var boundToElephant = large.bind(elephant);
+boundToElephant();
+
 
 
 // *************
@@ -88,7 +98,10 @@ function large() {
 // and return the bound function.
 
 // CODE HERE...
-
+function deathStar (capacity, crew) {
+  var bound = capacity.bind(crew);
+  return bound;
+}
 
 
 // *************
@@ -104,6 +117,11 @@ function large() {
 
 // CODE HERE...
 
+function accountingOffice(assets){
+  return function (liabilities){
+    return assets + liabilities;
+  }
+}
 
 
 // *************
@@ -129,6 +147,16 @@ function large() {
 
 // CODE HERE...
 
+function forgetter (name){
+  var newArray = [];
+  return function remberall (item){
+    newArray.push(item);
+    return {
+      name: name,
+      remember: array
+    }
+  }
+}
 
 
 // *************
@@ -156,3 +184,68 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+function frodo (startingHungerValue, startingDangerValue){
+  var sH = startingHungerValue;
+  var sD = startingHungerValue;
+
+  return {
+
+    dinnerOverFire: () => {
+      if (((sH - 25) <= 100 && (sH - 25) > 0) && ((sD + 40) <= 100 && (sD + 40) > 0)) {
+        return {
+          hunger: (sH -= 25),
+          danger: (sD += 40)
+        }
+      }
+      else if (((sH - 25) < 0) && ((sD + 40) <= 100 && (sD + 40) > 0)) {
+        return {
+          hunger: 0,
+          danger: (sD += 40)
+        }
+      }
+      if (((sH - 25) <= 100 && (sH - 25) > 0) && ((sD + 40) >= 100)) {
+        return {
+          hunger: (sH -= 25),
+          danger: 100
+        }
+      }
+      else {
+        return {
+          hunger: 0,
+          danger: 100
+        }
+      }
+    },
+
+
+    hidingInBush: () => {
+      if (((sH + 35) >= 100 && (sH + 35) > 0) && ((sD - 20) <= 100 && (sD - 20) > 0)) {
+        return {
+          hunger: (sH = +35),
+          danger: (sD = -20)
+        }
+      }
+      else if (((sH + 35) > 100) && ((sD - 20) <= 100 && (sD - 20) > 0)) {
+        return {
+          hunger: 100,
+          danger: (sD = -20)
+        }
+      }
+      else if (((sH + 35) >= 100 && (sH + 35) > 0) && ((sD - 20) < 0)) {
+        return {
+          hunger: (sH = +35),
+          danger: 0
+        }
+      }
+      else {
+        return {
+          hunger: 100,
+          danger: 0
+        }
+      }
+    }
+
+
+  }
+}
